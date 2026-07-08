@@ -9,6 +9,7 @@ import InsumosList from "./components/InsumosList";
 import InsumoForm from "./components/InsumoForm";
 import InsumoDetail from "./components/InsumoDetail";
 import "./App.css";
+import CalculadoraCostos from "./components/CalculadoraCostos";
 
 export default function App() {
   const [insumos, setInsumos] = useState([]);
@@ -16,6 +17,7 @@ export default function App() {
   const [detailId, setDetailId] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [vista, setVista] = useState("insumos"); 
 
   async function loadInsumos() {
     try {
@@ -61,33 +63,50 @@ export default function App() {
 
   return (
     <div className="container">
-      <h1>EcoShelf — Cliente de Insumos</h1>
+      <h1>EcoShelf — Cliente</h1>
       <p className="subtitle">
-        Cliente React + Vite consumiendo el API REST de ecoshelf-analytics
+        Cliente React + Vite consumiendo los APIs de EcoShelf Analytics
       </p>
 
-      {error && <div className="error">{error}</div>}
-
-      <InsumoForm
-        selected={selected}
-        onSubmit={handleSubmit}
-        onCancel={() => setSelected(null)}
-      />
+      <nav className="tabs">
+        <button onClick={() => setVista("insumos")} disabled={vista === "insumos"}>
+          Insumos
+        </button>
+        <button onClick={() => setVista("costos")} disabled={vista === "costos"}>
+          Calculadora de costos
+        </button>
+      </nav>
 
       <hr />
 
-      {loading ? (
-        <p>Cargando...</p>
-      ) : (
-        <InsumosList
-          insumos={insumos}
-          onSelect={setSelected}
-          onDelete={handleDelete}
-          onViewDetail={setDetailId}
-        />
-      )}
+      {vista === "insumos" ? (
+        <>
+          {error && <div className="error">{error}</div>}
 
-      <InsumoDetail id={detailId} onClose={() => setDetailId(null)} />
+          <InsumoForm
+            selected={selected}
+            onSubmit={handleSubmit}
+            onCancel={() => setSelected(null)}
+          />
+
+          <hr />
+
+          {loading ? (
+            <p>Cargando...</p>
+          ) : (
+            <InsumosList
+              insumos={insumos}
+              onSelect={setSelected}
+              onDelete={handleDelete}
+              onViewDetail={setDetailId}
+            />
+          )}
+
+          <InsumoDetail id={detailId} onClose={() => setDetailId(null)} />
+        </>
+      ) : (
+        <CalculadoraCostos />
+      )}
     </div>
   );
 }
