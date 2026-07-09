@@ -65,7 +65,7 @@ export default function App() {
     <div className="container">
       <h1>EcoShelf — Cliente</h1>
       <p className="subtitle">
-        Cliente React + Vite consumiendo los APIs de EcoShelf Analytics
+        Cliente React + Vite
       </p>
 
       <nav className="tabs">

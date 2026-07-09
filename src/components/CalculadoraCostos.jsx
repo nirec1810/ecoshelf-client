@@ -55,7 +55,7 @@ export default function CalculadoraCostos() {
     <div className="calculadora">
       <h2>Calculadora de costos de receta</h2>
       <p className="subtitle">
-        Consume ecoshelf-costos-api (sin base de datos)
+        Sin base de datos
       </p>
 
       <form onSubmit={handleSubmit}>
